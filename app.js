@@ -1,53 +1,61 @@
 class GroceryListItem extends React.Component {
+
   constructor(props) {
     super(props);
+
     this.state = {
-      isHovering: false
+      hovered: false
     };
   }
 
-
-  onGroceryListItemMouseEnter() {
+  onMouseEnterListener() {
     this.setState({
-      isHovering: true
+      hovered: true
     });
   }
 
-  onGroceryListItemMouseLeave() {
+  onMouseLeaveListener() {
     this.setState({
-      isHovering: false
+      hovered: false
     });
   }
+
+  // onListItemClick() {
+  //   this.setState({
+  //     clicked: !this.state.clicked
+  //   });
+  // }
 
   render() {
 
     var style = {
-      fontWeight: this.state.isHovering ? 'bold' : 'normal'
-    };
+      fontWeight: this.state.hovered ? 'bold' : 'normal'
+    }
 
+    // use onMouseEnter and onMouseLeave handlers
     return (
-      <li style={style} onHover={this.onGroceryListItemMouseEnter.bind(this)} onLeave={this.onGroceryListItemMouseLeave.bind(this)}>
-        {this.props.listItem}
+      <li style={style} onMouseEnter={this.onMouseEnterListener.bind(this)} onMouseLeave={this.onMouseLeaveListener.bind(this)}>
+        {this.props.item}
       </li>
-    );
+    )
   }
+};
 
-}
-
-var GroceryList = (props) => {
-  const groceryList = ['Kale', 'Cucumber', 'Spinach'];
+var GroceryList = () => {
+  const items = ['Coffee', 'Tea', 'Sugar'];
   return (
     <div>
-      <h1>My grocery list</h1>
+      <h1>Grocery List</h1>
       <ul>
-        {groceryList.map(function(listItem) {
-          return <GroceryListItem listItem={listItem + '!'} />
-        })}
+        {items.map((item) => <GroceryListItem item={item} key={item}/>)}
       </ul>
     </div>
   );
 }
 
+
+
 ReactDOM.render(<GroceryList />, document.getElementById("app"));
+
 
 
